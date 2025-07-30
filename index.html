@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Lean Printing Operation: An Interactive Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Body and Typography */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F4F4F5;
+            color: #27272A;
+            margin: 0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+        h2 { font-size: 2.25rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.025em; }
+        h3 { font-size: 1.875rem; font-weight: 700; margin-bottom: 1rem; }
+        h4 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; }
+        p { margin-bottom: 1rem; color: #52525B; }
+        .text-cyan-700 { color: #0e7490; }
+        .text-center { text-align: center; }
+
+        /* Header and Navigation */
+        header {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        }
+        header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        header .nav-links {
+            display: none; /* Hidden on mobile */
+        }
+        header .nav-links a {
+            text-decoration: none;
+            color: #3F3F46;
+            font-weight: 500;
+            padding-bottom: 0.25rem;
+            border-bottom: 2px solid transparent;
+        }
+        
+        /* Sections */
+        section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 5rem;
+        }
+        
+        /* Grid Layouts */
+        .grid { display: grid; gap: 2rem; }
+        
+        /* Cards and Panels */
+        .card {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .waste-card-static {
+            margin-bottom: 2rem;
+        }
+        .icon { font-size: 2.25rem; margin-bottom: 1rem; }
+        .info-box {
+            background-color: #F4F4F5;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+        }
+        .info-box .font-semibold { font-weight: 600; color: #27272A; }
+
+        /* Timeline */
+        .timeline-container { max-width: 48rem; margin: auto; }
+        .timeline-item { position: relative; padding-left: 2rem; padding-bottom: 2rem; }
+        .timeline-dot {
+            position: absolute;
+            top: 0.25rem;
+            left: -0.5rem;
+            width: 1rem;
+            height: 1rem;
+            background-color: #0891B2;
+            border-radius: 9999px;
+            border: 4px solid #ffffff;
+        }
+        .timeline-content {
+            border-left: 4px solid #0891B2;
+            padding-left: 2rem;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+        .timeline-content ul { list-style-position: inside; list-style-type: disc; padding-left: 1rem; }
+        
+        /* Table for Chart */
+        .chart-table {
+            width: 100%;
+            max-width: 32rem;
+            margin: 1.5rem auto;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        .chart-table th, .chart-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #E4E4E7;
+        }
+        .chart-table th {
+            background-color: #F4F4F5;
+            font-weight: 600;
+        }
+        .chart-table tr:last-child td { border-bottom: none; }
+        .data-bar {
+            background-color: #06B6D4;
+            height: 1.25rem;
+            border-radius: 0.25rem;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #27272A;
+            color: #ffffff;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            margin-top: 4rem;
+        }
+        footer p { color: #A1A1AA; }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            h2 { font-size: 3.75rem; }
+            .md-grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .md-grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .md-grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            header .nav-links { display: flex; gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <h1 style="font-size: 1.5rem; font-weight: 700; color: #0e7490;">Lean Printing Ops</h1>
+            <div class="nav-links">
+                <a href="#philosophy">Philosophy</a>
+                <a href="#waste">See Waste</a>
+                <a href="#culture">Build Culture</a>
+                <a href="#blueprint">Blueprint</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
+        <section class="text-center">
+            <h2>Transform Your Shop.</h2>
+            <p style="max-width: 48rem; margin: auto;">
+                Unlock higher quality, lower costs, and faster turnarounds. This is your guide to implementing Lean manufacturing, inspired by the Toyota Production System and made simple with &quot;2 Second Lean&quot;.
+            </p>
+        </section>
+
+        <section id="philosophy">
+            <div class="text-center">
+                <h3>The 'Why': A New Philosophy</h3>
+                <p style="max-width: 42rem; margin: auto;">
+                    Lean isn't just a set of tools; it's a mindset built on two powerful pillars. This section introduces the foundational principles that drive a Lean transformation.
+                </p>
+            </div>
+            <div class="grid md-grid-cols-2" style="max-width: 64rem; margin: 2rem auto;">
+                <div class="card">
+                    <h4 class="text-cyan-700">Jidoka: Built-in Quality</h4>
+                    <p>Often called &quot;automation with a human touch,&quot; Jidoka is about embedding quality at every step. It empowers any employee to stop production the moment a defect is found, preventing waste and forcing immediate problem-solving.</p>
+                    <div class="info-box">
+                        <p class="font-semibold">In Your Print Shop:</p>
+                        <p>An operator sees banding on the first banner of a 100-piece run and stops the printer immediately, saving 99 banners from being wasted.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h4 class="text-cyan-700">Just-in-Time (JIT): Flow</h4>
+                    <p>JIT's goal is to create a smooth, continuous flow of work. The principle is simple: make only what is needed, when it is needed, and in the amount needed. This eliminates massive overproduction and inventory waste.</p>
+                    <div class="info-box">
+                        <p class="font-semibold">In Your Print Shop:</p>
+                        <p>A customer order &quot;pulls&quot; a finished sign from shipping, which in turn pulls the sign from finishing, which pulls the print from the press. No work is done until it's truly needed.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="waste">
+            <div class="text-center">
+                <h3>The 'What': Learning to See Waste</h3>
+                <p style="max-width: 42rem; margin: auto;">
+                    Waste (*Muda*) is any activity that consumes resources but adds no value for the customer. The first step to eliminating waste is learning to see it. Explore the eight wastes below.
+                </p>
+            </div>
+            <div style="max-width: 64rem; margin: 2rem auto;">
+                <div class="waste-card-static card">
+                    <h4 class="text-cyan-700">🚚 Transportation</h4>
+                    <p><strong>Definition:</strong> Unnecessary movement of products, materials, or information between processes.</p>
+                    <div class="info-box"><p><strong>Example:</strong> Moving heavy vinyl rolls from a disorganized storage area to a printer at the other end of the building.</p></div>
+                </div>
+                <div class="waste-card-static card">
+                    <h4 class="text-cyan-700">📦 Inventory</h4>
+                    <p><strong>Definition:</strong> Any raw materials, work-in-progress (WIP), or finished goods in excess of what is required for the immediate next step.</p>
+                    <div class="info-box"><p><strong>Example:</strong> Overstocking on specialty inks and substrates &quot;just in case,&quot; tying up cash and space.</p></div>
+                </div>
+                <div class="waste-card-static card">
+                    <h4 class="text-cyan-700">🏃 Motion</h4>
+                    <p><strong>Definition:</strong> Unnecessary movement of people or equipment within a process.</p>
+                    <div class="info-box"><p><strong>Example:</strong> An operator repeatedly walking back and forth between the printer's control panel and the RIP computer.</p></div>
+                </div>
+                <div class="waste-card-static card">
+                    <h4 class="text-cyan-700">⏳ Waiting</h4>
+                    <p><strong>Definition:</strong> Idle time created when people, machines, or materials are not ready for the next step.</p>
+                    <div class="info-box"><p><strong>Example:</strong> A $100,000 printer sitting idle while waiting for a customer to approve a digital proof.</p></div>
+                </div>
+                <div class="waste-card-static card">
+                    <h4 class="text-cyan-700">🏭 Overproduction</h4>
+                    <p><strong>Definition:</strong> Producing more of something than is needed by the next process, or producing it sooner than it is needed.</p>
+                    <div class="info-box"><p><strong>Example:</strong> Printing a large banner job days before it is due, which then clutters the finishing area.</p></div>
+                </div>
+                <div class="waste-card-static card">
+                    <h4 class="text-cyan-700">⚙️ Over-processing</h4>
+                    <p><strong>Definition:</strong> Performing more work or adding more features to a product than the customer requires or values.</p>
+                    <div class="info-box"><p><strong>Example:</strong> Using the highest possible print resolution for a billboard that will only be viewed from hundreds of feet away.</p></div>
+                </div>
+                <div class="waste-card-static card">
+                    <h4 class="text-cyan-700">💔 Defects</h4>
+                    <p><strong>Definition:</strong> Errors, mistakes, scrap, or rework required to make a product or service meet customer expectations.</p>
+                    <div class="info-box"><p><strong>Example:</strong> Color mismatches requiring a full reprint. Banding, skewed prints, or ink smudges.</p></div>
+                </div>
+                <div class="waste-card-static card">
+                    <h4 class="text-cyan-700">🧠 Skills</h4>
+                    <p><strong>Definition:</strong> Non-utilized talent. Failing to engage employees, listen to their ideas, and use their full knowledge and creativity.</p>
+                    <div class="info-box"><p><strong>Example:</strong> A top-down culture where only managers make process decisions.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="culture">
+            <div class="text-center">
+                <h3>The 'How': Building an Improvement Culture</h3>
+                <p style="max-width: 42rem; margin: auto;">
+                    Paul Akers' &quot;2 Second Lean&quot; simplifies Lean into a powerful, people-first system. The goal is to &quot;grow people&quot; who then improve processes through simple, daily habits.
+                </p>
+            </div>
+            <div class="grid md-grid-cols-3" style="max-width: 80rem; margin: 2rem auto;">
+                <div class="card text-center"><div class="icon">🧐</div><h4>1. See Waste Daily</h4><p>Start with the simple mantra: &quot;Fix what bugs you.&quot; Daily frustrations are symptoms of waste, making it personal and immediate.</p></div>
+                <div class="card text-center"><div class="icon">⚡️</div><h4>2. Make 2-Second Improvements</h4><p>Lower the bar for improvement to a tiny, achievable level. A small fix is not intimidating and builds a daily habit of action.</p></div>
+                <div class="card text-center"><div class="icon">📲</div><h4>3. Document & Share</h4><p>Use a smartphone to make simple &quot;before and after&quot; videos. This celebrates contributions and shares knowledge effortlessly.</p></div>
+            </div>
+            <div class="card" style="max-width: 48rem; margin: 2rem auto;">
+                <h4 class="text-center">The Power of Compounding Improvements</h4>
+                <p class="text-center">A single 2-second improvement seems trivial. But when every employee makes one small improvement every day, the results are staggering. This table visualizes the total time saved per week by a small team.</p>
+                <table class="chart-table">
+                    <thead><tr><th>Team Size</th><th>Minutes Saved Per Week</th></tr></thead>
+                    <tbody>
+                        <tr><td>1 Person</td><td><span class="data-bar" style="width: 10%;"></span> 10 min</td></tr>
+                        <tr><td>3 People</td><td><span class="data-bar" style="width: 30%;"></span> 30 min</td></tr>
+                        <tr><td>5 People</td><td><span class="data-bar" style="width: 50%;"></span> 50 min</td></tr>
+                        <tr><td>10 People</td><td><span class="data-bar" style="width: 100%;"></span> 100 min</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="blueprint">
+            <div class="text-center">
+                <h3>The 'Now': Your Implementation Blueprint</h3>
+                <p style="max-width: 48rem; margin: auto;">
+                    This is your roadmap. It bridges philosophy with action, using &quot;2 Second Lean&quot; as the on-ramp to a full Lean transformation.
+                </p>
+            </div>
+            <div class="timeline-container" style="margin-top: 2rem;">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <p>First 30 Days</p>
+                        <h4>Phase 1: Build Cultural Habits</h4>
+                        <p>This initial phase is entirely focused on leadership commitment and establishing core routines.</p>
+                        <ul>
+                            <li>Your Personal Commitment: Read &quot;2 Second Lean&quot; and start improving your own work.</li>
+                            <li>Go and See (Genchi Genbutsu): Walk the shop floor to understand the current reality.</li>
+                            <li>Launch the Daily Morning Meeting: Start a simple, 15-minute daily team huddle.</li>
+                            <li>Introduce 3S & &quot;Fix What Bugs You&quot;: Dedicate time for Sort, Sweep, Standardize.</li>
+                            <li>Make the First Videos: As the leader, film your own improvement to show how it's done.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <p>Months 2-6</p>
+                        <h4>Phase 2: Visualize the Workflow & Hunt Waste</h4>
+                        <p>With basic habits established, the team is ready to look at the business more systematically.</p>
+                        <ul>
+                            <li>Map Your Core Workflow: On a whiteboard, map the high-level steps from order to delivery.</li>
+                            <li>Apply the Eight Wastes: Use the map to discuss where each of the 8 wastes occurs.</li>
+                            <li>Create a Waste Matrix: Build a visual &quot;heat map&quot; of where waste is most prevalent.</li>
+                            <li>Empower Teams: Encourage teams to make daily improvements in their specific areas.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item" style="padding-bottom: 0;">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <p>Months 6-12+</p>
+                        <h4>Phase 3: Lock in Gains & Tackle Complexity</h4>
+                        <p>Once the culture of daily improvement is strong, introduce more formal Lean systems.</p>
+                        <ul>
+                            <li>Establish Standardized Work: Document the new best practices with simple, visual guides.</li>
+                            <li>Implement Visual Controls: Use Kanban systems for consumables and a physical job board.</li>
+                            <li>Move Towards a &quot;Pull&quot; System: Limit Work-in-Progress (WIP) to smooth the flow.</li>
+                            <li>Give Tours: Build pride and gain new insights by showing your progress to outsiders.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p style="color: #ffffff; font-size: 1.125rem;">The journey of continuous improvement is lifelong.</p>
+            <p>An Interactive Guide to Lean Manufacturing</p>
+        </div>
+    </footer>
+</body>
+</html>
